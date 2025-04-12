@@ -103,4 +103,25 @@ public class TextureGenerator
 
         return textureArray;
     }
+
+    public static Texture2D CombineTextures(Texture2D[] textures, float[] baseStartHeights, int width, int height)
+    {
+        Texture2D finalTex = new Texture2D(width, height);
+
+        int y = 0;
+        for(int i = 0; i < textures.Length; i++)
+        {
+            Texture2D temp = textures[i];
+
+            int sliceWidth = textures[i].width;
+            int sliceHeight = Mathf.RoundToInt(height * baseStartHeights[i]) - y;
+
+            finalTex.SetPixels(0, y, sliceWidth, sliceHeight, textures[i].GetPixels(), 0);
+            y = Mathf.RoundToInt(height * baseStartHeights[i]);
+        }
+
+        finalTex.Apply();
+
+        return finalTex;
+    }
 }
