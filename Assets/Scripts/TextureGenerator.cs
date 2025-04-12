@@ -83,7 +83,7 @@ public class TextureGenerator
         return texture;
     }
 
-    public static Texture2DArray Texture2DArrayFromColorMap(Color[] colorMap)
+    public static Texture2DArray Texture2DArrayFromColorMap(Color[] colorMap) //Unlikely to be used
     {
         int slices = colorMap.Length;
 

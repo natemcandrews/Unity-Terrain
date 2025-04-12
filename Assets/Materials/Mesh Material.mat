@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mesh Material
-  m_Shader: {fileID: -6465566751694194690, guid: 4b7cec94406c6b646a9ea45ab1f28016, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b5dd36b4e13f5be4fa9c4204dcc7895d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -112,6 +112,10 @@ Material:
         m_Texture: {fileID: 18700000, guid: 26548fd43d566b4418bb9c13694dd9cb, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c59e7d699def4f1991cf4eb867d2fc7d_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: cb0565cb422294ecfab32e1e0917083f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_db8bf4afacdc410984d9b7e43f7bcf01_Texture_1_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -195,6 +199,8 @@ Material:
     - _Metallic2: 0
     - _Metallic3: 0
     - _Mode: 0
+    - _NormalMapOffset: 0.5
+    - _NormalStrength: 1
     - _NumLayersCount: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -229,6 +235,7 @@ Material:
     - _RippleCenter: {r: 0.011162281, g: 260.02274, b: 428.8495, a: 0}
     - _RippleColor: {r: 1, g: 0, b: 0.11805153, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 100, g: 100, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5481217817675421320
