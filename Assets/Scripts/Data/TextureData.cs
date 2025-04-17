@@ -8,20 +8,24 @@ public class TextureData : UpdatableData
     [Range(0, 1)]
     public float[] baseStartHeights;
 
-    public Texture2D[] textures;
-
     float savedMinHeight;
     float savedMaxHeight;
 
+    public static class ShaderProps
+    {
+        public const string minHeight = "_minHeight";
+        public const string maxHeight = "_maxHeight";
+
+        public const string baseColorCount = "_baseColorCount";
+        public const string baseColors = "_baseColors";
+        public const string baseStartHeights = "_baseStartHeights";
+    }
+
     public void ApplyToMaterial(Material material)
     {
-        //Texture2D texture = TextureGenerator.HeightBasedTexture(baseColors, baseStartHeights, savedMaxHeight);
-
-        //material.SetTexture("_heightBasedColorTexture", texture);
-
-        Texture2D heightBasedTexture = TextureGenerator.CombineTextures(textures, baseStartHeights, textures[0].width, textures[0].width);
-
-        material.SetTexture("_heightBasedTexture", heightBasedTexture);
+        material.SetInt(ShaderProps.baseColorCount, baseColors.Length);
+        material.SetColorArray(ShaderProps.baseColors, baseColors);
+        material.SetFloatArray(ShaderProps.baseStartHeights, baseStartHeights);
 
         UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
     }
@@ -31,7 +35,7 @@ public class TextureData : UpdatableData
         savedMinHeight = minHeight;
         savedMaxHeight = maxHeight;
 
-        material.SetFloat("minHeight", minHeight);
-        material.SetFloat("maxHeight", maxHeight);
+        material.SetFloat(ShaderProps.minHeight, minHeight);
+        material.SetFloat(ShaderProps.maxHeight, maxHeight);
     }
 }

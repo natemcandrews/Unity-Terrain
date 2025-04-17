@@ -18,10 +18,6 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.08423042, a: 0}
   - {r: 0, g: 0.2208755, b: 1, a: 0}
   baseStartHeights:
-  - 0.167
-  - 0.5
-  - 1
-  textures:
-  - {fileID: 2800000, guid: cb0565cb422294ecfab32e1e0917083f, type: 3}
-  - {fileID: 2800000, guid: f3d89648f6c90482c95aa8f766831884, type: 3}
-  - {fileID: 2800000, guid: f4db79717ff4b4e44a8c3a248f53bcc8, type: 3}
+  - 0
+  - 0.304
+  - 0.653
