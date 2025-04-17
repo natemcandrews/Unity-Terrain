@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d472bbe2aa41d4d4d8da3898294e164e, type: 3}
   m_Name: Default Terrain
   m_EditorClassIdentifier: 
-  autoUpdate: 0
+  autoUpdate: 1
   useFalloff: 0
-  meshHeightMultiplier: 45
+  meshHeightMultiplier: 65
   meshHeightCurve:
     serializedVersion: 2
     m_Curve:
@@ -27,6 +27,51 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.19379449
+      value: 0.0684121
+      inSlope: 0.6312866
+      outSlope: 0.6312866
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.38251787
+      value: 0.2149085
+      inSlope: 0.6741551
+      outSlope: 0.6741551
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.26758066
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4447418
+      value: 0.25180426
+      inSlope: 0.5086727
+      outSlope: 0.5086727
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.5059533
+      value: 0.2855464
+      inSlope: 0.8433421
+      outSlope: 0.8433421
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6403721
+      value: 0.40258184
+      inSlope: 1.0991178
+      outSlope: 1.0991178
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.7008984
       value: 0.49125856

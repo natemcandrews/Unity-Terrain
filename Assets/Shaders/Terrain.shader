@@ -1,9 +1,8 @@
 Shader "natemcandrews/Terrain"
 {
     Properties{
-        [Header(Surface options)] // Creates a text header
-        _Smoothness("Smoothness", Float) = 0
-        _Metallic("Metallic", Range(0.0, 1.0)) = 0
+        testTexture("Texture", 2D) = "white"{}
+        testScale("Scale", Float) = 1
     }
 
     SubShader{
