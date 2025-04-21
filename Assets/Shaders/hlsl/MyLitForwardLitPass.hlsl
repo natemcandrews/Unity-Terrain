@@ -21,6 +21,8 @@ float _baseTextureScales[maxLayerCount];
 TEXTURE2D(testTexture); SAMPLER(sampler_testTexture);
 float testScale;
 
+TEXTURE2D_ARRAY(_baseTextures); SAMPLER(sampler_baseTextures);
+
 struct Attributes {
 	float3 positionOS : POSITION;
     float3 normalOS : NORMAL;
@@ -62,6 +64,17 @@ float inverseLerp(float a, float b, float value)
     return saturate((value - a) / (b - a));
 }
 
+float3 triplanar(float3 worldPos, float scale, float3 blendAxes, int textureIndex)
+{
+    float3 scaledWorldPos = worldPos / scale;
+    
+    float3 xProjection = SAMPLE_TEXTURE2D_ARRAY(_baseTextures, sampler_baseTextures, scaledWorldPos.yz, textureIndex) * blendAxes.x;
+    float3 yProjection = SAMPLE_TEXTURE2D_ARRAY(_baseTextures, sampler_baseTextures, scaledWorldPos.xz, textureIndex) * blendAxes.y;
+    float3 zProjection = SAMPLE_TEXTURE2D_ARRAY(_baseTextures, sampler_baseTextures, scaledWorldPos.xy, textureIndex) * blendAxes.z;
+    
+    return xProjection + yProjection + zProjection;
+}
+
 
 float4 Fragment(Interpolators input) : SV_TARGET {
 	InputData lightingInput = (InputData)0;
@@ -76,24 +89,18 @@ float4 Fragment(Interpolators input) : SV_TARGET {
     surfaceInput.smoothness = _smoothness;
     surfaceInput.metallic = _metallic;
 
+    input.blendWeights /= input.blendWeights.x + input.blendWeights.y + input.blendWeights.z;
+
     float heightPercent = inverseLerp(_minHeight, _maxHeight, input.positionWS.y);
     for(int i = 0; i < _layerCount; i++)
     {
         float drawStrength = inverseLerp(-_baseBlends[i] / 2 - epsilon, _baseBlends[i] / 2 - epsilon, heightPercent - _baseStartHeights[i]);
-        surfaceInput.albedo = surfaceInput.albedo * (1 - drawStrength) + _baseColors[i] * drawStrength;
+        
+        float3 baseColor = _baseColors[i] * _baseColorStrength[i];
+        float3 textureColor = triplanar(input.positionWS, _baseTextureScales[i], input.blendWeights, i) * (1 - _baseColorStrength[i]);
+        
+        surfaceInput.albedo = surfaceInput.albedo * (1 - drawStrength) + (baseColor + textureColor) * drawStrength;
     }
-
-    float3 xTex = SAMPLE_TEXTURE2D(testTexture, sampler_testTexture, input.xUV).rgb;
-    float3 yTex = SAMPLE_TEXTURE2D(testTexture, sampler_testTexture, input.yUV).rgb;
-    float3 zTex = SAMPLE_TEXTURE2D(testTexture, sampler_testTexture, input.zUV).rgb;
     
-    input.blendWeights /= input.blendWeights.x + input.blendWeights.y + input.blendWeights.z;
-
-    float3 finalColor = xTex * input.blendWeights.x +
-                        yTex * input.blendWeights.y +
-                        zTex * input.blendWeights.z;
-    
-    // surfaceInput.albedo = finalColor;
-
 	return UniversalFragmentPBR(lightingInput, surfaceInput);
 }

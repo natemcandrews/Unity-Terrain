@@ -5,6 +5,9 @@ using System.Linq;
 [CreateAssetMenu()]
 public class TextureData : UpdatableData
 {
+    const int textureSize = 512;
+    const TextureFormat textureFormat = TextureFormat.RGB565;
+
     public Layer[] layers;
 
     [Range(0, 1)]
@@ -25,7 +28,9 @@ public class TextureData : UpdatableData
         public const string baseStartHeights = "_baseStartHeights";
         public const string baseBlends = "_baseBlends";
         public const string baseColorStrength = "_baseColorStrength";
+
         public const string baseTextureScales = "_baseTextureScales";
+        public const string baseTextures = "_baseTextures";
 
         public const string smoothness = "_smoothness";
         public const string metallic = "_metallic";
@@ -40,11 +45,26 @@ public class TextureData : UpdatableData
         material.SetFloatArray(ShaderProps.baseBlends, layers.Select(x => x.blendStrength).ToArray());
         material.SetFloatArray(ShaderProps.baseTextureScales, layers.Select(x => x.textureScale).ToArray());
 
+        Texture2DArray texturesArray = GenerateTextureArray(layers.Select(x => x.texture).ToArray());
+        material.SetTexture(ShaderProps.baseTextures, texturesArray);
 
         material.SetFloat(ShaderProps.smoothness, smoothness);
         material.SetFloat(ShaderProps.metallic, metallic);
 
         UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
+    }
+
+    Texture2DArray GenerateTextureArray(Texture2D[] textures)
+    {
+        Texture2DArray textureArray = new Texture2DArray(textureSize, textureSize, textures.Length, textureFormat, true);
+
+        for (int i = 0; i < textures.Length; i++)
+        {
+            textureArray.SetPixels(textures[i].GetPixels(), i);
+        }
+        textureArray.Apply();
+
+        return textureArray;
     }
 
     public void UpdateMeshHeights(Material material, float minHeight, float maxHeight)
@@ -59,7 +79,7 @@ public class TextureData : UpdatableData
     [System.Serializable]
     public class Layer
     {
-        public Texture texture;
+        public Texture2D texture;
         public Color tint;
         [Range(0, 1)]
         public float tintStrength;
