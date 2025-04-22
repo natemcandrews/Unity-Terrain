@@ -31,6 +31,20 @@ Shader "natemcandrews/Terrain"
             #include "hlsl/MyLitForwardLitPass.hlsl"
             ENDHLSL
         }
+
+        Pass {
+            Name "ShadowCaster"
+            Tags {"LightMode" = "ShadowCaster"}
+
+            HLSLPROGRAM
+
+            #pragma vertex Vertex
+            #pragma fragment Fragment
+
+            #include "hlsl/MyLitShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
         
     }
 }
