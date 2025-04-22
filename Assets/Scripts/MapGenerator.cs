@@ -54,6 +54,8 @@ public class MapGenerator : MonoBehaviour
 
     public void DrawMapInEditor()
     {
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindFirstObjectByType<MapDisplay>();
@@ -73,6 +75,8 @@ public class MapGenerator : MonoBehaviour
 
     public void RequestMapData(Vector2 center, Action<MapData> callback)
     {
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+
         ThreadStart threadstart = delegate
         {
             MapDataThread(center, callback);
@@ -151,8 +155,6 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-
-        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         return new MapData(noiseMap);
     }
