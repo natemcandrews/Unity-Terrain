@@ -249,7 +249,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _baseColorCount: 3
-    - _maxHeight: 0
+    - _maxHeight: 150
     - _minHeight: 0
     - testScale: 2
     m_Colors:

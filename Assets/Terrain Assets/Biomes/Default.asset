@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2740c82be8b947e45b226eab745ea57e, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  autoUpdate: 1
+  biomeName: Default
+  layers:
+  - texture: {fileID: 2800000, guid: f924b450d45a60f48a6dd0dde1ee3f07, type: 3}
+    tint: {r: 0, g: 0.049153805, b: 1, a: 0}
+    tintStrength: 0.317
+    startHeight: 0
+    blendStrength: 0.055
+    textureScale: 1
+  - texture: {fileID: 2800000, guid: e2897e72054615e48b0ee8ed0cbe2881, type: 3}
+    tint: {r: 0.764151, g: 0.74914926, b: 0.075694196, a: 0}
+    tintStrength: 0.445
+    startHeight: 0.059
+    blendStrength: 0.019
+    textureScale: 0
+  - texture: {fileID: 2800000, guid: 997e33ef28abc0440a3d80dc5b1c76fa, type: 3}
+    tint: {r: 0.088479936, g: 0.5801887, b: 0.07662871, a: 0}
+    tintStrength: 0.415
+    startHeight: 0.105
+    blendStrength: 0.026
+    textureScale: 0
+  - texture: {fileID: 2800000, guid: 66c3f8875925b8e46a0e41ae68964c23, type: 3}
+    tint: {r: 0.36320752, g: 0.3385632, b: 0.04283107, a: 0}
+    tintStrength: 0.233
+    startHeight: 0.206
+    blendStrength: 0.041
+    textureScale: 0
+  - texture: {fileID: 2800000, guid: b172b4f1204ad584bafad7c1da610b6e, type: 3}
+    tint: {r: 0.28773582, g: 0.24177143, b: 0.088220894, a: 0}
+    tintStrength: 0.383
+    startHeight: 0.491
+    blendStrength: 0.038
+    textureScale: 0
+  - texture: {fileID: 2800000, guid: 3d57bbe152feaa544a45189cdf60290b, type: 3}
+    tint: {r: 1, g: 1, b: 1, a: 0}
+    tintStrength: 0.522
+    startHeight: 0.789
+    blendStrength: 0.095
+    textureScale: 0
+  - texture: {fileID: 0}
+    tint: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0
+    startHeight: 0
+    blendStrength: 0
+    textureScale: 0
+  - texture: {fileID: 0}
+    tint: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0
+    startHeight: 0
+    blendStrength: 0
+    textureScale: 0
+  smoothness: 0
+  metallic: 0
+  normalizeMode: 1
+  noiseScale: 75
+  octaves: 4
+  persistence: 0.35
+  lacunarity: 2
+  seed: 0
+  offset: {x: 0, y: 0}
+  useFalloff: 0
+  meshHeightMultiplier: 60
+  meshHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.75357914
+      value: 0.40960833
+      inSlope: 1.8490344
+      outSlope: 1.8490344
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19259281
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useFlatShading: 0
+  uniformScale: 2.5

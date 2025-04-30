@@ -36,7 +36,7 @@ public class InfiniteTerrain : MonoBehaviour
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.terrainData.uniformScale;
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.GetBiome().GetTerrainData().uniformScale;
 
         if (viewerPosition != viewerPositionOld)
         {
@@ -119,9 +119,11 @@ public class InfiniteTerrain : MonoBehaviour
             meshCollider = meshObject.AddComponent<MeshCollider>();
             meshRenderer.material = material;
 
-            meshObject.transform.position = positionV3 * mapGenerator.terrainData.uniformScale;
+            TerrainData terrainData = mapGenerator.GetBiome().GetTerrainData();
+
+            meshObject.transform.position = positionV3 * terrainData.uniformScale;
             meshObject.transform.parent = parent;
-            meshObject.transform.localScale = Vector3.one * mapGenerator.terrainData.uniformScale;
+            meshObject.transform.localScale = Vector3.one * terrainData.uniformScale;
             SetVisible(false);
 
             lodMeshes = new LODMesh[detailLevels.Length];

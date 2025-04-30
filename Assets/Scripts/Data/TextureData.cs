@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Linq;
 
 
-[CreateAssetMenu()]
-public class TextureData : UpdatableData
+[System.Serializable]
+public class TextureData
 {
     const int textureSize = 512;
     const TextureFormat textureFormat = TextureFormat.RGB565;
@@ -38,7 +38,7 @@ public class TextureData : UpdatableData
 
     public void ApplyToMaterial(Material material)
     {
-        material.SetInt(ShaderProps.layerCount, layers.Length);
+        material.SetInt(ShaderProps.layerCount, countLayers(layers));
         material.SetColorArray(ShaderProps.baseColors, layers.Select(x => x.tint).ToArray());
         material.SetFloatArray(ShaderProps.baseColorStrength, layers.Select(x => x.tintStrength).ToArray());
         material.SetFloatArray(ShaderProps.baseStartHeights, layers.Select(x => x.startHeight).ToArray());
@@ -54,12 +54,29 @@ public class TextureData : UpdatableData
         UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
     }
 
+    public int countLayers(Layer[] layers)
+    {
+        int count = 0;
+        for (int i = 0; i < layers.Length; i++)
+        {
+            if (layers[i].texture != null)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     Texture2DArray GenerateTextureArray(Texture2D[] textures)
     {
         Texture2DArray textureArray = new Texture2DArray(textureSize, textureSize, textures.Length, textureFormat, true);
 
         for (int i = 0; i < textures.Length; i++)
         {
+            if (textures[i] == null)
+            {
+                continue;
+            }
             textureArray.SetPixels(textures[i].GetPixels(), i);
         }
         textureArray.Apply();
