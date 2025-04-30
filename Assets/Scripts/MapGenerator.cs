@@ -8,9 +8,7 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode {NoiseMap, Mesh, Falloff};
     public DrawMode drawMode;
 
-    public TerrainData terrainData;
-    public NoiseData noiseData;
-    public TextureData textureData;
+    public BiomeData[] availableBiomes;
 
     public Material terrainMaterial;
 
@@ -26,6 +24,9 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
+        TextureData textureData = GetBiome().GetTextureData();
+        TerrainData terrainData = GetBiome().GetTerrainData();
+
         textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
     }
@@ -40,6 +41,8 @@ public class MapGenerator : MonoBehaviour
 
     void OnTextureValuesUpdated()
     {
+        TextureData textureData = GetBiome().GetTextureData();
+
         textureData.ApplyToMaterial(terrainMaterial);
     }
 
@@ -47,7 +50,7 @@ public class MapGenerator : MonoBehaviour
     {
         get
         {
-            if(terrainData.useFlatShading)
+            if(GetBiome().GetTerrainData().useFlatShading)
             {
                 return 95;
             }
@@ -58,9 +61,16 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    public BiomeData GetBiome()
+    {
+        return availableBiomes[0];
+    }
+
     public void DrawMapInEditor()
     {
-        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+        TerrainData terrainData = GetBiome().GetTerrainData();
+
+        GetBiome().GetTextureData().UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         MapData mapData = GenerateMapData(Vector2.zero);
 
@@ -81,6 +91,9 @@ public class MapGenerator : MonoBehaviour
 
     public void RequestMapData(Vector2 center, Action<MapData> callback)
     {
+        TextureData textureData = GetBiome().GetTextureData();
+        TerrainData terrainData = GetBiome().GetTerrainData();
+
         textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         ThreadStart threadstart = delegate
@@ -110,6 +123,8 @@ public class MapGenerator : MonoBehaviour
 
     void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback)
     {
+        TerrainData terrainData = GetBiome().GetTerrainData();
+
         MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, terrainData.meshHeightMultiplier, terrainData.meshHeightCurve, lod, terrainData.useFlatShading);
         lock (meshDataThreadInfoQueue)
         {
@@ -140,6 +155,10 @@ public class MapGenerator : MonoBehaviour
 
     public MapData GenerateMapData(Vector2 center)
     {
+        NoiseData noiseData = GetBiome().GetNoiseData();
+        TerrainData terrainData = GetBiome().GetTerrainData();
+
+
         float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, noiseData.seed, noiseData.noiseScale, noiseData.octaves, noiseData.persistence, noiseData.lacunarity, center + noiseData.offset, noiseData.normalizeMode);
 
         if (terrainData.useFalloff)
@@ -167,22 +186,13 @@ public class MapGenerator : MonoBehaviour
 
     private void OnValidate()
     {
-        if(terrainData != null)
+        if(GetBiome() != null)
         {
-            terrainData.OnValuesUpdated -= OnValuesUpdated;
-            terrainData.OnValuesUpdated += OnValuesUpdated;
-        }
+            GetBiome().OnValuesUpdated -= OnTextureValuesUpdated;
+            GetBiome().OnValuesUpdated += OnTextureValuesUpdated;
 
-        if(noiseData != null)
-        {
-            noiseData.OnValuesUpdated -= OnValuesUpdated;
-            noiseData.OnValuesUpdated += OnValuesUpdated;
-        }
-
-        if(textureData != null)
-        {
-            textureData.OnValuesUpdated -= OnTextureValuesUpdated;
-            textureData.OnValuesUpdated += OnTextureValuesUpdated;
+            GetBiome().OnValuesUpdated -= OnValuesUpdated;
+            GetBiome().OnValuesUpdated += OnValuesUpdated;
         }
     }
 

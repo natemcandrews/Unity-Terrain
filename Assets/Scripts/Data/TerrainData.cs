@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class TerrainData : UpdatableData
+[System.Serializable]
+public class TerrainData
 {
     public bool useFalloff;
 

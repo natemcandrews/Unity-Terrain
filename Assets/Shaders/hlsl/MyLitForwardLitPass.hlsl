@@ -11,7 +11,7 @@ uniform float _maxHeight;
 const static int maxLayerCount = 8;
 const static float epsilon = 1E-4;
 
-int _layerCount;
+int _layerCount = maxLayerCount;
 float3 _baseColors[maxLayerCount];
 float _baseStartHeights[maxLayerCount];
 float _baseBlends[maxLayerCount];
